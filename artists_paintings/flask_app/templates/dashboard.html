@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Welcome {{ user.first_name }}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/new/painting" class="btn btn-primary">Add New Painting</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+
+        </div>
+
+    </nav>
+
+    <h2>Paintings</h2>
+
+    <div class="col-8 mx-auto">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for painting in painting %}
+                    <tr>
+                        <td>{{ painting.title }}</td>
+                        <td>{{ painting.description }}</td>
+                        <td>{{ painting.price }}</td>
+                        <td>
+                            <a href="/painting/{{painting.id}}">{{painting.title}}</a>
+                            {% if painting.user_id == session.user_id %}
+                            <a href="/edit/painting/{{painting.id}}">Edit</a>
+                            <a href="/delete/painting/{{painting.id}}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
